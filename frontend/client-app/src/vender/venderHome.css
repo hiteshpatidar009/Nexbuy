@@ -1,0 +1,40 @@
+ /* #venderimg1{
+    background-image: url('./VenderappPhoto/smallVenderbag.jpg');
+    background-size:cover;
+    height: 800px;
+    width: auto;
+}  */
+
+#vendervideoHome1{
+  position:absolute;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -5;
+
+  object-fit: cover;
+  margin: 0;
+  padding: 0;
+}
+
+#venderid{
+  
+margin-top: 80px;
+margin-left: 100px;
+}
+
+#welcome{
+  margin-top: 50px;
+  margin-left: 80px;
+  display: inline;
+}
+#picimg{
+  margin-left: 1000px;
+  display: block;
+}
+.button{
+  height: 150px;
+  width: 150px;
+  font-size: larger;
+  margin-left: 40px;
+  margin-bottom: 100px;
+}

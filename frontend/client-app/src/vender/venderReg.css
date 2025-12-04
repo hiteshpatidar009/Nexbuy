@@ -1,0 +1,11 @@
+/* #venderimg1{
+    background-image: url('./VenderappPhoto/smallVenderbag.jpg');
+    background-size:cover;
+} */
+
+#myVideo{
+    margin: 0px;
+    position:fixed;
+    z-index: -1;
+    
+}

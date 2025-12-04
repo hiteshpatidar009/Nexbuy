@@ -1,0 +1,56 @@
+/* Card container styling */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  padding: 2rem;
+}
+
+/* Product Card */
+.product-card {
+  height: 340px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 2px solid #ff6f61;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+}
+
+.product-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Fixed Image Size */
+.product-card img {
+  height: 220px;
+  object-fit: cover;
+  width: 100%;
+  border-bottom: 1px solid #eee;
+}
+
+/* Card Content */
+.product-title {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #333;
+}
+
+.price-line {
+  text-decoration: line-through;
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.offer-price {
+  color: #e53935;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.card-buttons .btn {
+  border-radius: 12px;
+}
+
