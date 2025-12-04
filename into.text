@@ -1,0 +1,28 @@
+E-commerce online shopping webside management system project 
+
+e-commerce (electronic commerce) is process of doing business through computer networks. this primary goal 
+of an e-commerce site is to sell goods and services online.
+ online shopping is a form of electronic shopping store where the buyer is directly connect online  to 
+ the seller's computer usually via the internet . sellers can add product at portal.
+
+ Number of modules of ecommerce webside management system
+
+ this project is divided into 11 modules:
+
+ 1.Reginstaration modules customer & vender
+ 2.products browse modules
+ 3.products Search modules
+ 4.shopping cart modules
+ 5.shopping&billing modules
+ 6.payment modules
+ 7.admin user management modules
+ 8.admin catalog management modules
+ 9.admin order management modules
+ 10. product category management modules
+ 11.state and city management modules
+
+
+Entities of project
+1.Admin
+2.Customer
+3.Vender
