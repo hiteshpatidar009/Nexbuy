@@ -3,6 +3,7 @@ import axios from "axios";
 import cart from "../img.jpg"
 import ReactDOM from "react-dom/client";
 import Bill from "../Customer/Bill";
+import { apiUrl } from "../api";
 
 function ProductList(props) {
     const [itemcount, setItemCount] = useState(0);
@@ -194,7 +195,7 @@ function ProductList(props) {
                                             {cname}
                                         </td>
                                         <td>
-                                            <img src={"http://localhost:9669/product/getproductimage/" + item.ppicname}
+                                            <img src={item.PImgUrl || apiUrl("/product/getproductimage/" + item.ppicname)}
                                                 height={100} width={100} alt="product" className="img-thumbnail" />
                                         </td>
                                         <td>{item.status}</td>

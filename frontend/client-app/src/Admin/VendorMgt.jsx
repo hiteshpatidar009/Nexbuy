@@ -36,6 +36,21 @@ function VendorMgt() {
             });
     };
 
+        const handleDeleteButton = (vid) => {
+            if (!window.confirm(`Delete vendor ${vid}? This cannot be undone.`)) {
+                return;
+            }
+
+            axios.delete(`http://localhost:9669/vender/delete/${vid}`)
+                .then((res) => {
+                    setVendorList((currentList) => currentList.filter((item) => item.Vid !== vid));
+                    alert(res.data);
+                })
+                .catch((err) => {
+                    alert(err);
+                });
+        };
+
     return (
         <div className="container py-4">
             <h3 className="text-center fw-bold mb-4">Vendor List</h3>
@@ -46,7 +61,7 @@ function VendorMgt() {
                             <th>Vendor ID</th>
                             <th>Vendor Name</th>
                             <th>Status</th>
-                            <th colSpan={2}>Actions</th>
+                            <th colSpan={3}>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -61,6 +76,9 @@ function VendorMgt() {
                                     </td>
                                     <td>
                                         <button className="btn btn-danger btn-sm" onClick={() => handleInActiveButton(item.Vid)}>Deactivate</button>
+                                    </td>
+                                    <td>
+                                        <button className="btn btn-outline-danger btn-sm" onClick={() => handleDeleteButton(item.Vid)}>Delete</button>
                                     </td>
                                 </tr>
                             ))

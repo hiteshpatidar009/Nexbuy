@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom/client";
 import VenderLogin from "./VenderLogin";
 import "./venderHome.css"
 import venderhomevideo from "./VenderappPhoto/venderhome1.mp4"
 import Button from 'react-bootstrap/Button';
 import Product from "../product/Product"
+import { apiUrl } from "../api";
+import { renderApp } from "../renderApp";
 
 function VenderHome(props) {
     const [vendname, setVendName] = useState("");
@@ -29,18 +30,13 @@ function VenderHome(props) {
 
     const handleAddProductButton = () => {
 
-        const root = ReactDOM.createRoot(document.getElementById("root"));
-         
-         
-        root.render(<Product data={newoobj} />)
+        renderApp(<Product data={newoobj} />)
     }
 
     const handleLogOut = () => {
         sessionStorage.removeItem("vsessionauth");
         alert("Vender Session Closed");
-        const root = ReactDOM.createRoot(document.getElementById("root"));
-
-        root.render(<VenderLogin />);
+        renderApp(<VenderLogin />);
     }
 
     return (
@@ -60,7 +56,7 @@ function VenderHome(props) {
             
                 <h1 id="venderid">Vender Id : <span style={{color:"rgb(223, 109, 45)"}} >{props.data.vid}</span></h1>
                 <h1 id="welcome">Welcome _<span style={{color:"rgb(99, 140, 109)"}} >{props.data.vfname}</span></h1>
-                <img id="picimg" src={"http://localhost:9669/vender/getimage/" + props.data.vpicname } width="300" height="400"/>
+                <img id="picimg" src={props.data.vpicurl || apiUrl("/vender/getimage/" + props.data.vpicname) } width="300" height="400"/>
 
                 {/* <button className="button" onClick={handleAddProductButton}>Manage Product</button>
                 <button className="button" type="submit" onClick={handleLogOut}>Logout</button> */}

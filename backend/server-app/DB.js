@@ -1,4 +1,4 @@
 
     module.exports={
-        URL :"mongodb://127.0.0.1:27017/ProjectSirCop"
+        URL :"mongodb+srv://hiteshmakdone009_db_user:dA7qnQ9EyMjReMIq@cluster0.bddn6lp.mongodb.net/ProjectSirCop"
     }

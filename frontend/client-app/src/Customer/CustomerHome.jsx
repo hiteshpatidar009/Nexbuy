@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import ProductList from "../product/ProductList";
 import BillByID from "../Customer/BillByID";
-import ReactDOM from "react-dom/client";
 import axios from "axios";
+import { apiUrl } from "../api";
+import { renderApp } from "../renderApp";
 import CustomerLogin from "./CustomerLogin";
 import "./CustomerHome.css"; 
 
@@ -29,15 +30,13 @@ function CustomerHome(props) {
     }, [props.data.selitems]);
 
     const handleShowBills = () => {
-        const root = ReactDOM.createRoot(document.getElementById("root"));
-        root.render(<BillByID data={props.data.cid} />);
+        renderApp(<BillByID data={props.data.cid} />);
     };
 
     const handleLogOut = () => {
         sessionStorage.removeItem("sessionauth");
         alert("Customer session closed");
-        const root = ReactDOM.createRoot(document.getElementById("root"));
-        root.render(<CustomerLogin />);
+        renderApp(<CustomerLogin />);
     };
 
     function loadScript(src) {
@@ -53,7 +52,8 @@ function CustomerHome(props) {
     async function SaveBill() {
         try {
             const res = await axios.get("http://localhost:9669/bill/getbillid/");
-            nextbillid = parseInt(res.data[0].billid) + 1;
+            const lastBill = Array.isArray(res.data) ? res.data[0] : res.data;
+            nextbillid = (Number(lastBill?.billid) || 0) + 1;
             const date = new Date();
             const currentDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
 
@@ -163,7 +163,7 @@ function CustomerHome(props) {
                 <div className="text-center mb-4">
                     <h3>Welcome, {props.data.cfname}</h3>
                     <img
-                        src={`http://localhost:9669/customer/getimage/${props.data.cpicname}`}
+                        src={props.data.cpicurl || apiUrl(`/customer/getimage/${props.data.cpicname}`)}
                         alt="Profile"
                         className="rounded-circle mt-2 mb-3"
                         width="120"
@@ -209,7 +209,7 @@ function CustomerHome(props) {
                                     <td>{item.oprice}</td>
                                     <td>
                                         <img
-                                            src={`http://localhost:9669/product/getproductimage/${item.ppicname}`}
+                                            src={item.PImgUrl || apiUrl(`/product/getproductimage/${item.ppicname}`)}
                                             height="80"
                                             width="80"
                                             alt={item.pname}

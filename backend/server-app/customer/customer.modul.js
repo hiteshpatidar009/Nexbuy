@@ -10,6 +10,7 @@ var Customer = new Schema({
     CContact: { type: Number },
     CEmail: { type: String },
     CPicName: { type: String },
+    CPicUrl: { type: String },
     Cid: { type: Number },
     Status: { type: String }
 }, { collection: "Customer" });

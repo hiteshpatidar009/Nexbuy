@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './ProductCard.css';
 import axios from 'axios';
-import ReactDOM from "react-dom/client"
 import Bill from "../Customer/Bill"
+import { apiUrl } from "../api";
+import { renderApp } from "../renderApp";
 import Login from "../Customer/CustomerLogin"
 import Button from 'react-bootstrap/Button';
 import { Badge } from "react-bootstrap";
@@ -63,26 +64,24 @@ const handleBuy = (evt) => {
       
           if (!isLoggedIn) {
             alert("Please login first.");
-            const root = ReactDOM.createRoot(document.getElementById("root"));
             // window.location.href = "/login"; // change if your login route differs
     
             const obj = {
               selitems: selitems,
               // cid: ccid,
             };
-            root.render(<Login data={obj} />);
+            renderApp(<Login data={obj} />);
     
             return;
           }
        
-          const root = ReactDOM.createRoot(document.getElementById("root"));
           // const ccid = props.data;
           const obj = {
             selitems: selitems,
             // cid: ccid,
           };
           
-          root.render(<Bill data={obj}></Bill>);
+          renderApp(<Bill data={obj}></Bill>);
         }
 
 
@@ -129,26 +128,24 @@ const handleBuy = (evt) => {
   
       if (!isLoggedIn) {
         alert("Please login first.");
-        const root = ReactDOM.createRoot(document.getElementById("root"));
         // window.location.href = "/login"; // change if your login route differs
 
         const obj = {
           selitems: selitems,
           // cid: ccid,
         };
-        root.render(<Login data={obj} />);
+        renderApp(<Login data={obj} />);
 
         return;
       }
    
-      const root = ReactDOM.createRoot(document.getElementById("root"));
       // const ccid = props.data;
       const obj = {
         selitems: selitems,
         // cid: ccid,
       };
       
-      root.render(<Bill data={obj}></Bill>);
+      renderApp(<Bill data={obj}></Bill>);
     }
   };
   
@@ -210,7 +207,7 @@ const handleBuy = (evt) => {
         {plist.map((item, index) => (
           <div className="card product-card" key={index}>
             <img
-              src={`http://localhost:9669/product/getproductimage/${item.ppicname}`}
+              src={item.PImgUrl || apiUrl(`/product/getproductimage/${item.ppicname}`)}
               alt={item.pname}
             />
             <div className="card-body text-center p-3">

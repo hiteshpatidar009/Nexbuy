@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios"
+import { apiUrl } from "../api";
 
 function BillByID(props) {
 
@@ -11,6 +12,7 @@ function BillByID(props) {
     var oprice=0;
     var total=0
     var ppicname="";
+    var ppicurl="";
 
     useEffect(()=>{
         // get bill id from db
@@ -85,6 +87,7 @@ function BillByID(props) {
                                         oprice=pitem.oprice;
                                         total=total+parseInt(pitem.oprice);
                                         ppicname=pitem.ppicname;
+                                        ppicurl=pitem.PImgUrl;
                                     }
                                 })
                             }
@@ -92,7 +95,7 @@ function BillByID(props) {
 
                             <td>{oprice}</td>
                             <td>
-                                <img src={"http://localhost:9669/product/getproductimage/"+ppicname } height="100" width="100"/>
+                                <img src={ppicurl || apiUrl("/product/getproductimage/"+ppicname) } height="100" width="100"/>
                             </td>
 
                         </tr>

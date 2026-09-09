@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { apiUrl } from "../api";
 // import "../App.css";
 
 function ShowBills() {
@@ -15,6 +16,7 @@ function ShowBills() {
     var oprice = 0;
     var total = 0;
     var picname = "";
+    var picurl = "";
     const [prevbillid, setprevbillid] = useState(0);
     var prbid = 0;
     var k = true;
@@ -103,6 +105,7 @@ function ShowBills() {
                                             oprice = pitem.oprice;
                                             total = total + parseInt(pitem.oprice);
                                             picname = pitem.ppicname;
+                                            picurl = pitem.PImgUrl;
                                         }
                                     });
 
@@ -115,7 +118,7 @@ function ShowBills() {
                                             <td>{oprice}</td>
                                             <td>
                                                 <img
-                                                    src={"http://localhost:9669/product/getproductimage/"+picname}
+                                                    src={picurl || apiUrl("/product/getproductimage/"+picname)}
                                                     height={50} width={50}
                                                     alt="Product"
                                             

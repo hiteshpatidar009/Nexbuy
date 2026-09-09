@@ -3,6 +3,7 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { apiUrl } from "../api";
 import logo from "../img.jpg";
 
 function Bill(props) {
@@ -79,7 +80,8 @@ function Bill(props) {
        axios
       .get("http://localhost:9669/bill/getbillid/")
       .then((res) => {
-        nextbillid = parseInt(res.data[0].billid) + 1;
+        const lastBill = Array.isArray(res.data) ? res.data[0] : res.data;
+        nextbillid = (Number(lastBill?.billid) || 0) + 1;
 
         const date = new Date();
         let day = date.getDate();
@@ -265,8 +267,7 @@ function Bill(props) {
               <td>{item.oprice}</td>
               <img
                 src={
-                  "http://localhost:9669/product/getproductimage/" +
-                  item.ppicname
+                  item.PImgUrl || apiUrl("/product/getproductimage/" + item.ppicname)
                 }
                 height={100}
                 width={100}

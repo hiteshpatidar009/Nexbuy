@@ -5,16 +5,15 @@ import Col from "react-bootstrap/Col";
 import "./Gridpage.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import VenderLogin from "../vender/VenderLogin"
-import ReactDOM from "react-dom/client";
 import ainexbuy from "./nexPhoto/nexbuymain.mp4"
+import { renderApp } from "../renderApp";
 
 function Gridpage() {
   const [displayText, setDisplayText] = useState("");
 
   const handleloginbutton=()=>{
 
-    const root = ReactDOM.createRoot(document.getElementById("root"));
-    root.render(<VenderLogin/>)
+    renderApp(<VenderLogin/>)
   }
 
   const text = `🛍️ Have great products to offer? \n Let the world discover your brand and explore what makes your store special.\n

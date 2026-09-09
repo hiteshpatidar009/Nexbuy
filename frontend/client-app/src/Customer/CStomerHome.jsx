@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom/client";
 import CustomerLogin from "./CustomerLogin";
 import BillByID from "../Customer/BillByID";
+import { apiUrl } from "../api";
+import { renderApp } from "../renderApp";
 import "./CustomerHome.css";
 
 function CStomerHome(props) {
@@ -27,8 +28,7 @@ function CStomerHome(props) {
     const handleLogOut = () => {
         sessionStorage.removeItem("sessionauth");
         alert("Customer session closed");
-        const root = ReactDOM.createRoot(document.getElementById("root"));
-        root.render(<CustomerLogin />);
+        renderApp(<CustomerLogin />);
     };
 
     if (!props.data) {
@@ -47,7 +47,7 @@ function CStomerHome(props) {
                 <div className="text-center mb-4">
                     <h3>Welcome, {props.data.cfname}</h3>
                     <img
-                        src={`http://localhost:9669/customer/getimage/${props.data.cpicname}`}
+                        src={props.data.cpicurl || apiUrl(`/customer/getimage/${props.data.cpicname}`)}
                         alt="Profile"
                         className="rounded-circle mt-2 mb-3"
                         width="120"
@@ -93,7 +93,7 @@ function CStomerHome(props) {
                                             <td>₹{item.oprice}</td>
                                             <td>
                                                 <img
-                                                    src={`http://localhost:9669/product/getproductimage/${item.ppicname}`}
+                                                    src={item.PImgUrl || apiUrl(`/product/getproductimage/${item.ppicname}`)}
                                                     height="80"
                                                     width="80"
                                                     alt={item.pname}

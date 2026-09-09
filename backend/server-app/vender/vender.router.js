@@ -104,4 +104,15 @@ venderRoute.route("/vendermanage/:vid/:status").put((req,res)=>{
 
     })
 });
+
+venderRoute.route("/delete/:vid").delete((req, res) => {
+    Vender.deleteOne({ Vid: req.params.vid }).then((result) => {
+        if (result.deletedCount === 0) {
+            return res.status(404).send("Vendor not found");
+        }
+        res.send("Vendor deleted successfully");
+    }).catch((err) => {
+        res.status(500).send(err);
+    });
+});
 module.exports=venderRoute;

@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Container, Row, Col, Form, Button, Image } from 'react-bootstrap';
 import VenderReg from "./VenderReg";
-import ReactDOM from "react-dom/client";
 import Cookies from "js-cookie";
 import VenderHome from "./VenderHome";
+import { renderApp } from "../renderApp";
 function VenderLogin() {
 
     const [uid, setUId] = useState("");
@@ -30,68 +30,48 @@ function VenderLogin() {
     }, [])
 
     const handleLoginButton = () => {
-        var obj = {
-            vuid: uid,
-            vupass: upass
+      const loginData = {
+        vuid: uid,
+        vupass: upass
+      };
+
+      axios.post("http://localhost:9669/vender/login", loginData).then((res) => {
+        if (res.data.VUserId === undefined) {
+          alert("Invalid Id/Password");
+          return;
+        }
+
+        if (res.data.Status == "Inactive") {
+          alert("User Not Active Please Wait For Admin Activation Process");
+          return;
+        }
+
+        if (ischecked == true) {
+          const userData = { username: uid, password: upass };
+          const expirationTime = new Date(new Date().getTime() + 6000000);
+          Cookies.set("vauth", JSON.stringify(userData), { expires: expirationTime });
+        }
+
+        const userSessionData = { vuserfullname: res.data.VenderName };
+        sessionStorage.setItem("vsessionauth", JSON.stringify(userSessionData));
+
+        const vendorData = {
+          vfname: res.data.VenderName,
+          vpicname: res.data.VPicName,
+                vpicurl: res.data.VPicUrl,
+          vid: res.data.Vid
         };
-        axios.post("http://localhost:9669/vender/login", obj).then((res) => {
-          
 
-
-            if (res.data.VUserId !== undefined) {
-                if (res.data.Status == "Inactive") {
-                    alert("User Not Active Please Wait For Admin Activation Process");
-                    return;
-                }
-                //cookies handling code
-                if (ischecked == true) {
-                    const userData = {
-                        username: uid,
-                        password: upass
-                    };
-                    const expirationTime = new Date
-                        (new Date().getTime() + 6000000);
-                    //store data in cookies
-                    Cookies.set('vauth', JSON.stringify
-                        (userData), { expires: expirationTime });
-                }
-
-                //session handling code
-                const userSessionData = {
-                    vuserfullname: res.data.VenderName
-                };
-                const sessionexpirationTime = new Date(new Date().getTime() + 60000);
-
-                //store data in session
-
-                sessionStorage.setItem("vsessionauth", JSON.stringify(userSessionData),
-                sessionexpirationTime);
-
-
-                const root = ReactDOM.createRoot(document.getElementById("root"));
-
-                var obj = {
-                    vfname: res.data.VenderName,
-                    vpicname: res.data.VPicName,
-                    vid: res.data.Vid
-                }
-
-              
-               alert("Login Successfully "+obj.vfname)
-                root.render(<VenderHome data={obj}/>)
-            }
-            else {
-                alert("Invalid Id/Password");
-            }
-        });
+        alert("Login Successfully " + vendorData.vfname);
+        renderApp(<VenderHome data={vendorData} />);
+      });
     }
     const handleIsRemember = () => {
         setIsChecked(true);
     }
 
     const handleRegister = () => {
-        const root = ReactDOM.createRoot(document.getElementById("root"));
-        root.render(<VenderReg />)
+      renderApp(<VenderReg />)
     }
 
     return (

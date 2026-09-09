@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
 import './index.css';
 // import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -12,13 +11,14 @@ import Product from "./product/Product"
 import AdimnHome from "./Admin/AdminHome"
 import Nexbuy from './NexBuy/Nexbuy';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './api';
+import { renderApp } from './renderApp';
 
 
 
 
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+renderApp(
   <React.StrictMode>
    
    {/* <MainAdmin/> */}

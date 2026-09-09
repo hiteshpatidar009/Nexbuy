@@ -7,6 +7,7 @@ var Product= new Schema({
     pprice:{type:Number},
     oprice:{type:Number},
     ppicname:{type:String},
+    PImgUrl:{type:String},
     pcatgid:{type:Number},
     vid:{type:Number},
     status:{type:String},

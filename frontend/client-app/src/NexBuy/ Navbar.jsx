@@ -6,11 +6,11 @@ import Button from 'react-bootstrap/Button';
 import { Badge } from "react-bootstrap";
 
 import Login from '../Customer/CustomerLogin';
-import ReactDOM from 'react-dom/client';
 import CustomerLogin from '../Customer/CustomerLogin';
 import VenderLogin from '../vender/VenderLogin';
 import AdminLogin from '../Admin/AdminLogin';
 import Homepage from "../Customer/CStomerHome"
+import { renderApp } from "../renderApp";
 
 
 function BasicExample() {
@@ -31,33 +31,27 @@ function BasicExample() {
     sessionStorage.removeItem("sessionauth");
     setIsLoggedIn(false);
 
-    const root = ReactDOM.createRoot(document.getElementById("root"));
-    root.render(<Login />);
+    renderApp(<Login />);
   };
 
   const handleLoginButton = () => {
-    const root = ReactDOM.createRoot(document.getElementById("root"));
-    root.render(<Login />);
+    renderApp(<Login />);
   };
 
   const handleAdminLogin = () => {
-    const root = ReactDOM.createRoot(document.getElementById("root"));
-    root.render(<AdminLogin />);
+    renderApp(<AdminLogin />);
   };
 
   const handleVenderButton = () => {
-    const root = ReactDOM.createRoot(document.getElementById("root"));
-    root.render(<VenderLogin />);
+    renderApp(<VenderLogin />);
   };
 
   const handlecusLoginButton = () => {
-    const root = ReactDOM.createRoot(document.getElementById("root"));
-    root.render(<CustomerLogin />);
+    renderApp(<CustomerLogin />);
   };
 
   const handleDashboard = () => {
-    const root = ReactDOM.createRoot(document.getElementById("root"));
-    root.render(<Homepage/>);
+    renderApp(<Homepage/>);
   };
 
   return (

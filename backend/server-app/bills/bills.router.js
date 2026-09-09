@@ -50,13 +50,10 @@ billRoute.route("/billshowbillids/:cid").get((req,res)=>{
 
 billRoute.route("/getbillid").get((req,res)=>{
     Bill.find().sort({"billid":-1}).limit(1).then(bill=>{
-        console.log(bill);
-        res.send(bill);
-        res.end()
+        const lastBillId = bill.length > 0 ? Number(bill[0].billid) || 0 : 0;
+        res.json([{ billid: lastBillId }]);
     }).catch(err =>{
-
-        res.send(err);
-        res.end();
+        res.status(500).send(err);
     });
 });
 

@@ -4,7 +4,6 @@ import City from "./City";
 import ProductCatg from "./ProductCatg";
 import VendorMgt from "./VendorMgt";
 import ShowBills from "./ShowBills";
-import ReactDOM from "react-dom/client";
 import ProductList from "./ProductList";
 import CustomerMgt from "./CustomerMgt";
 
@@ -46,7 +45,7 @@ function AdminHome() {
     }
 
     function LogOutButtonClick() {
-        const root = ReactDOM.createRoot(document.getElementById("root"));
+        // Keep logout inside the existing application root.
     }
 
     return (<>

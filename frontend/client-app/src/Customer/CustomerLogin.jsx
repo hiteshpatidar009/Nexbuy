@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import CustomerHome from "./CustomerHome";
-import ReactDOM, { createRoot } from "react-dom/client";
 import cookies from "js-cookie";
 import Registration from "../Customer/CustomerReg"
+import { renderApp } from "../renderApp";
 
 function CustomerLogin(props) {
   const [uid, setUId] = useState("");
@@ -44,17 +44,17 @@ function CustomerLogin(props) {
         sessionStorage.setItem("sessionauth", JSON.stringify(userSessionData), sessionExpirationTime);
         localStorage.setItem("isLoggedIn", "true");
 
-        const root = ReactDOM.createRoot(document.getElementById("root"));
         const selitems = props.data?.selitems || [];
 
         const obj = {
           cfname: res.data.CustomerName,
           cid: res.data.Cid,
           cpicname: res.data.CPicName,
+          cpicurl: res.data.CPicUrl,
           selitems: selitems,
         };
 
-        root.render(<CustomerHome data={obj} />);
+        renderApp(<CustomerHome data={obj} />);
       } else {
         alert("Invalid ID/Password");
       }
@@ -62,9 +62,7 @@ function CustomerLogin(props) {
   };
    const handleRegistrationbutton =()=>{
     
-    const root = ReactDOM.createRoot(document.getElementById("root"));
-       
-       root.render(<Registration/>);
+       renderApp(<Registration/>);
    }
 
   return (

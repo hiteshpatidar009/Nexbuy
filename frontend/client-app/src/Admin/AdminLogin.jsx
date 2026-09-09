@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import ReactDOM from "react-dom/client";
 import MainAdmin from "./MainAdmin";
+import { renderApp } from "../renderApp";
 
 function AdminLogin() {
   const [uid, setUId] = useState("");
@@ -11,8 +11,7 @@ function AdminLogin() {
 
   const handleLoginButton = () => {
     if (uid === "admin" && upass === "abc@123") {
-      const root = ReactDOM.createRoot(document.getElementById("root"));
-      root.render(<MainAdmin />);
+      renderApp(<MainAdmin />);
     } else {
       alert("Invalid ID/Password");
     }

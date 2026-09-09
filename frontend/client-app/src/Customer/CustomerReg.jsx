@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { apiUrl } from "../api";
 
 function CustomerReg() {
   const [cuserid, setCUserId] = useState("");
@@ -11,6 +12,7 @@ function CustomerReg() {
   const [ccontact, setCContact] = useState("");
   const [cemail, setCEmail] = useState("");
   const [cpicname, setCPicName] = useState("");
+  const [cpicurl, setCPicUrl] = useState("");
   const [cid, setCId] = useState("");
   const [image, setImage] = useState({ preview: '', data: '' });
   const [status, setStatus] = useState("");
@@ -46,6 +48,7 @@ function CustomerReg() {
       CContact: ccontact,
       CEmail: cemail,
       CPicName: cpicname,
+      CPicUrl: cpicurl,
       Cid: cid,
       Status: "Inactive"
     };
@@ -66,7 +69,7 @@ function CustomerReg() {
     evt.preventDefault();
     const formData = new FormData();
     formData.append("file", image.data);
-    const response = await fetch("http://localhost:9669/customer/savecustomerimage", {
+    const response = await fetch(apiUrl("/customer/savecustomerimage"), {
       method: "POST",
       body: formData,
     });
@@ -159,6 +162,7 @@ function CustomerReg() {
           <div className="mb-3">
             <label className="form-label fw-bold">Select Photo</label>
             <input type="file" className="form-control" onChange={handleFileChange} name="file" />
+            <input type="url" className="form-control mt-2" placeholder="Production image URL (optional)" value={cpicurl} onChange={(e) => setCPicUrl(e.target.value)} />
             {image.preview && <img src={image.preview} alt="preview" width="100" height="100" className="mt-2 rounded shadow" />}
           </div>
 

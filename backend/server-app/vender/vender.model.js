@@ -8,6 +8,7 @@ var Vender = new Schema ({
     VContact:{type:Number},
     VEmail:{type:String},
     VPicName:{type:String},
+    VPicUrl:{type:String},
     Vid:{type:Number},
     Status:{type:String},
 

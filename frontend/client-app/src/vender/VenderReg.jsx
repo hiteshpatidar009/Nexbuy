@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { apiUrl } from "../api";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./venderReg.css"
 import venderVed1 from "./VenderappPhoto/vendersmall1.mp4"
 import VenderLogin from "./VenderLogin";
-import ReactDOM from "react-dom/client";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
+import { renderApp } from "../renderApp";
 
 function VenderReg() {
   const [vuserid, setVUserId] = useState("");
@@ -18,6 +19,7 @@ function VenderReg() {
   const [vcontact, setVContact] = useState("");
   const [vemail, setVEmail] = useState("");
   const [vpicname, setVPicName] = useState("");
+  const [vpicurl, setVPicUrl] = useState("");
   const [vid, setVId] = useState("");
   const [imgae, setImage] = useState({ preview: "", data: "" });
   const [status, setStatus] = useState("");
@@ -70,6 +72,7 @@ function VenderReg() {
       VContact: vcontact,
       VEmail: vemail,
       VPicName: vpicname,
+      VPicUrl: vpicurl,
       Vid: vid,
       Status: "active",
     };
@@ -93,7 +96,7 @@ function VenderReg() {
     let formData = new FormData();
     formData.append("file", imgae.data);
     const response = await fetch(
-      "http://localhost:9669/vender/savevenderimage",
+      apiUrl("/vender/savevenderimage"),
       {
         method: "POST",
         body: formData,
@@ -117,8 +120,7 @@ function VenderReg() {
     setVPicName(evt.target.files[0].name);
   };
   const handleLogin = () => {
-    const root = ReactDOM.createRoot(document.getElementById("root"));
-    root.render(<VenderLogin />);
+    renderApp(<VenderLogin />);
   };
   /////////////.........................********************************............................\\\\\\\\\\\\\\\
   // Custom CSS
@@ -233,6 +235,7 @@ function VenderReg() {
             <Col sm={4}>
             
                                 <input type="file" onChange={handleFileChange} name="file" />
+                                <Form.Control type="url" placeholder="Production image URL (optional)" value={vpicurl} onChange={(e) => setVPicUrl(e.target.value)} />
                                 <img src={imgae.preview} width="100" height="100" />
                                 <Button variant="secondary" type="submit" onClick={handleSubmit} >Upload Vender Photo</Button>
             </Col>

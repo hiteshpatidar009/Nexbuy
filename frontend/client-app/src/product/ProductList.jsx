@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import cart from "/Users/apple/Documents/Project.js/NexBuy-Project/frontend/client-app/src/product/ypsilon-it-solutions.avif";
-import ReactDOM from "react-dom/client";
+import cart from "./ypsilon-it-solutions.avif";
 import Bill from "../Customer/Bill";
+import { renderApp } from "../renderApp";
+import { apiUrl } from "../api";
 
 function ProductList(props) {
   const [itemcount, setItemCount] = useState(0);
@@ -58,13 +59,12 @@ function ProductList(props) {
     if (selitems.length <= 0) {
       alert("Buy some product");
     } else {
-      const root = ReactDOM.createRoot(document.getElementById("root"));
       var ccid = props.data;
       var obj = {
         selitems: selitems,
         cid: ccid,
       };
-      root.render(<Bill data={obj}></Bill>);
+      renderApp(<Bill data={obj}></Bill>);
     }
   };
 
@@ -140,10 +140,7 @@ function ProductList(props) {
               </td>
               <td>
                 <img
-                  src={
-                    "http://localhost:9669/product/getproductimage/" +
-                    item.ppicname
-                  }
+                  src={item.PImgUrl || apiUrl("/product/getproductimage/" + item.ppicname)}
                   height={100}
                   width={100}
                 />

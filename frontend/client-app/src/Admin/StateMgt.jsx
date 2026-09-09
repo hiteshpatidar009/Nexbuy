@@ -2,9 +2,9 @@ import React,{useEffect, useState} from "react";
 import axios from "axios";
 
 function StateMgt(){
-    const [stid,setStId]=useState();
-    const [stname,setStName]=useState();
-    const [status,setStatus]=useState();
+    const [stid,setStId]=useState("");
+    const [stname,setStName]=useState("");
+    const [status,setStatus]=useState("");
     const [stlist,setStlist]=useState([]);
 
 
@@ -93,6 +93,7 @@ function StateMgt(){
     <center>
         <h4 style={{backgroundColor:"green",color:"white"}}>Manage product categoryname</h4>
         <table>
+            <tbody>
             <tr>
                 <td>
                     State Id
@@ -120,8 +121,10 @@ function StateMgt(){
                     </select>
                 </td>
             </tr>
+            </tbody>
         </table>
         <table>
+            <tbody>
             <tr>
                 <td>
                     <button type="Submit" onClick={handleSaveButton}>Save</button>
@@ -139,14 +142,18 @@ function StateMgt(){
                     <button type="Submit" onClick={handleShowAllButton}>Show</button>
                 </td>
             </tr>
+            </tbody>
         </table>
         <h4>List Of Tables</h4>
         <table>
+            <thead>
             <tr>
                 <th>State Id</th>
                 <th>State Name</th>
                 <th>Status</th>
             </tr>
+            </thead>
+            <tbody>
             {
                 stlist.map((item)=>(
                     <tr>
@@ -156,6 +163,7 @@ function StateMgt(){
                     </tr>
                 ))
             }
+            </tbody>
         </table>
 
     </center>

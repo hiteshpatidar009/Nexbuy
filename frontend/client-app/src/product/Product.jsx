@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { apiUrl } from "../api";
 
 function Product(props) {
   const [pid, setPId] = useState();
@@ -7,6 +8,7 @@ function Product(props) {
   const [pprice, setPPrice] = useState("");
   const [oprice, setOPrice] = useState("");
   const [ppicname, setPPicName] = useState("");
+  const [pimgurl, setPImgUrl] = useState("");
   const [pcatgid, setPCatgId] = useState("");
   const [pcatglist, setPCatgList] = useState([]);
   const [image, setImage] = useState({ preview: "", data: "" });
@@ -39,7 +41,7 @@ function Product(props) {
     evt.preventDefault();
     let formData = new FormData();
     formData.append("file", image.data);
-    const response = await fetch("http://localhost:9669/product/saveproductimage", {
+    const response = await fetch(apiUrl("/product/saveproductimage"), {
       method: "POST",
       body: formData,
     });
@@ -48,7 +50,7 @@ function Product(props) {
 
   const handleSaveButton = () => {
     const obj = {
-      pid, pname, pprice, oprice, ppicname, pcatgid,
+      pid, pname, pprice, oprice, ppicname, PImgUrl: pimgurl, pcatgid,
       vid: vendorid,
       status: "Active",
     };
@@ -72,6 +74,7 @@ function Product(props) {
         setPPrice("");
         setOPrice("");
         setPPicName("");
+        setPImgUrl("");
         setImage({ preview: "", data: "" });
         setPCatgId("");
       })
@@ -109,6 +112,7 @@ function Product(props) {
           <div className="mb-3">
             <label className="form-label">Select Product Image</label>
             <input type="file" className="form-control" onChange={handleFileChange} />
+            <input type="url" className="form-control mt-2" placeholder="Production image URL (optional)" value={pimgurl} onChange={(e) => setPImgUrl(e.target.value)} />
             {image.preview && <img src={image.preview} alt="Preview" className="img-thumbnail mt-2" width="100" />}
             <button className="btn btn-outline-primary btn-sm mt-2" onClick={handleSubmit}>Upload Image</button>
             <p className="text-success mt-1">{status}</p>
@@ -142,7 +146,7 @@ function Product(props) {
                 <div className="col-md-4 mb-4" key={index}>
                   <div className="card h-100 shadow-sm">
                     <img
-                      src={`http://localhost:9669/product/getproductimage/${item.ppicname}`}
+                      src={item.PImgUrl || apiUrl(`/product/getproductimage/${item.ppicname}`)}
                       className="card-img-top"
                       alt={item.pname}
                       style={{ objectFit: "cover", height: "200px" }}

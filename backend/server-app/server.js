@@ -2,7 +2,7 @@
 const express =require ("express");
 const app = express();
 const bodyParser = require("body-parser");
-const PORT=9669 ;
+const PORT=process.env.PORT || 9669;
 const cors= require("cors")
 const mongoose =require("mongoose");
 const config = require("./DB.js");
@@ -36,11 +36,19 @@ app.use("/payment", paymentRoutes);
 // app.use("/emailactivation",emailactivationrouter);
 
 
-mongoose.connect(config.URL)
+app.get("/", (req, res) => {
+    res.json({ status: "ok", service: "Nexbuy API" });
+});
+
+mongoose.connect(process.env.MONGODB_URI || config.URL)
 .then(()=>{console.log("Data base is connect "+config.URL)},
     err=>{console.log("Can not connect to the database"+err)}
 );
-app.listen(PORT,()=>{
-    console.log("server is running on Port "+PORT);
 
-})
+if (require.main === module) {
+    app.listen(PORT,()=>{
+        console.log("server is running on Port "+PORT);
+    });
+}
+
+module.exports = app;
